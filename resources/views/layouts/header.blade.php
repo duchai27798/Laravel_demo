@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header position-sticky">
     <div class="container h-100 d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
             <i class="fab fa-facebook size-42 mr-3"></i>
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="d-flex">
-            <div class="btn-dropdown d-flex justify-content-center align-items-center cursor-pointer" data-toggle="modal" data-target="#person-editor-modal">
+            <div class="btn-dropdown d-flex justify-content-center align-items-center cursor-pointer">
                 <i class="fas fa-plus size-20 text-black-50"></i>
             </div>
             <div class="btn-dropdown d-flex justify-content-center align-items-center ml-2">

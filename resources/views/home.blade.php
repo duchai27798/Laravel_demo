@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container">
+    <div class="container pt-5">
+        <button class="btn btn-success" onclick="openPersonCreatorDialog()">Create</button>
         <div class="card-container row">
             @foreach($persons ?? [] as $person)
                 <div class="col-12 col-lg-6 mt-4">
@@ -23,8 +24,12 @@
                                 <div class="mt-1 d-flex"><span class="label">Hobby:</span><span class="text-black-50">{{ $person->hobby }}</span></div>
                             </div>
                             <div class="d-flex flex-column justify-content-end">
-                                <button class="btn btn-primary" onclick="openPersonEditorDialog({{ $person->id }})"><i class="far fa-edit size-22"></i></button>
-                                <button class="btn btn-danger m-t-10"><i class="fas fa-trash-alt size-22"></i></button>
+                                <button class="btn btn-primary" onclick="openPersonEditorDialog({{ $person->id }})">
+                                    <i class="far fa-edit size-22"></i>
+                                </button>
+                                <button class="btn btn-danger m-t-10" onclick="deletePerson({{ $person->id }})">
+                                    <i class="fas fa-trash-alt size-22"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -37,15 +42,41 @@
 @endsection
 
 <script>
-    function openPersonEditorDialog(id) {
+    function openPersonCreatorDialog() {
         $.ajax({
             type: 'GET',
-            url: '/person/edit/' + id,
+            url: '/person/create/',
             dataType: 'HTML',
             success: function (data) {
                 $('#dialog').html(data);
                 $('#person-editor-modal').modal("show");
-            },
+            }
+        })
+    }
+
+    function openPersonEditorDialog(id) {
+        $.ajax({
+            type: 'GET',
+            url: `/person/${id}/edit`,
+            dataType: 'HTML',
+            success: function (data) {
+                $('#dialog').html(data);
+                $('#person-editor-modal').modal("show");
+            }
+        })
+    }
+
+    function deletePerson(id) {
+        $.ajax({
+            type: 'delete',
+            url: `/person/${id}`,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                if (_.get(data, 'status') === 'success') {
+                    location.reload();
+                }
+            }
         })
     }
 </script>

@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PersonEditorDialogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +17,4 @@ use App\Http\Controllers\PersonEditorDialogController;
 
 Route::get('/', [SiteController::class, 'home']);
 
-Route::get('/person/edit/{id}', [PersonEditorDialogController::class, 'edit']);
+Route::resource('/person', PersonController::class);
